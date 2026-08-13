@@ -1,0 +1,144 @@
+.scraping-options-container {
+  margin-top: 20px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.option-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.number-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.number-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #0f172a;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.number-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.number-input.input-error {
+  border-color: #ef4444;
+  background-color: #fff5f5;
+}
+
+.unit-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.select-wrapper {
+  position: relative;
+  margin-top: 6px;
+}
+
+.select-input {
+  width: 100%;
+  padding: 10px 32px 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #0f172a;
+  background: #ffffff;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.select-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.2s ease;
+}
+
+.radio-option:hover {
+  background-color: #f1f5f9;
+}
+
+.radio-option.selected {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+.radio-dot {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #94a3b8;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease;
+}
+
+.radio-option.selected .radio-dot {
+  border-color: #2563eb;
+  background-color: #2563eb;
+}
+
+.radio-label-text {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #1e293b;
+}

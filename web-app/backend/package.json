@@ -1,0 +1,20 @@
+{
+  "name": "job-scraper-gateway",
+  "version": "1.0.0",
+  "description": "Express REST API Gateway connecting to Python Scraper Service",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "papaparse": "^5.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

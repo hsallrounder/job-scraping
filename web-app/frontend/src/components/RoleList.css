@@ -1,0 +1,45 @@
+.role-list-container {
+  margin-top: 20px;
+}
+
+.role-items-wrapper {
+  margin-top: 14px;
+}
+
+.empty-roles-notice {
+  padding: 16px;
+  background-color: #fff1f2;
+  border: 1px dashed #fca5a5;
+  border-radius: 8px;
+  color: #9f1239;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.role-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.add-role-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-role-btn:hover {
+  background-color: #dcfce7;
+  border-color: #86efac;
+  transform: translateY(-1px);
+}

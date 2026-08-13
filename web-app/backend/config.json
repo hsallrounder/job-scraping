@@ -1,0 +1,19 @@
+{
+  "roles": [
+    {
+      "search_term": "Associate Software Engineer",
+      "google_search_term": "Fresher OR Entry Level 'Associate Software Engineer' job in India"
+    }
+  ],
+  "sites": [
+    "indeed",
+    "linkedin",
+    "google"
+  ],
+  "location": "India",
+  "country_indeed": "India",
+  "jobs_per_role": 5,
+  "hours_old": 24,
+  "fetch_linkedin_description": true,
+  "remove_duplicates": true
+}
