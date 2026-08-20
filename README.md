@@ -54,7 +54,8 @@ pip install -r requirements.txt
 # Start FastAPI application
 python -m uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 ```
-> **Scraper API running on:** `http://localhost:8000`  
+
+> **Scraper API running on:** `http://localhost:8000`
 > **Interactive Swagger Docs:** `http://localhost:8000/docs`
 
 ---
@@ -71,7 +72,8 @@ npm install
 # Start Express server
 npm start
 ```
-> **Express Gateway running on:** `http://localhost:5000`  
+
+> **Express Gateway running on:** `http://localhost:5000`
 > *(Connected by default to `http://localhost:8000`)*
 
 ---
@@ -88,6 +90,7 @@ npm install
 # Start React development server
 npm start
 ```
+
 > **React App running on:** `http://localhost:3000`
 
 ---
@@ -101,7 +104,7 @@ npm start
    - **Environment**: `Python 3`
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn app:app --host 0.0.0.0 --port $PORT`
-4. Render automatically reads [`scraper-service/runtime.txt`](file:///c:/Users/raadh/OneDrive/Desktop/MyAnatomy/MATCH/Opportunity/Job%20Scrapping/scraper-service/runtime.txt) (`python-3.12.8`) to ensure Python environment compatibility.
+4. Render automatically reads [`scraper-service/runtime.txt`](<file:///c:/Users/raadh/OneDrive/Desktop/MyAnatomy/MATCH/Opportunity/Job%20Scrapping/scraper-service/runtime.txt>) (`python-3.12.8`) to ensure Python environment compatibility.
 5. Once deployed, copy your live Render URL (e.g. `https://your-scraper-service.onrender.com`).
 
 ---
@@ -111,6 +114,7 @@ npm start
 Once your `scraper-service` is live on Render, you can connect your local Express backend (`web-app/backend`) to your live Render URL using **either of these 2 methods**:
 
 ### Method A: `.env` File (Recommended)
+
 1. Create a `.env` file inside `web-app/backend/`:
    ```env
    FASTAPI_URL=https://your-scraper-service.onrender.com
@@ -123,14 +127,17 @@ Once your `scraper-service` is live on Render, you can connect your local Expres
 ---
 
 ### Method B: Terminal Environment Variable
+
 Set `FASTAPI_URL` directly when starting your Express server:
 
 **PowerShell (Windows):**
+
 ```powershell
 $env:FASTAPI_URL="https://your-scraper-service.onrender.com"; npm start
 ```
 
 **Bash (Mac / Linux):**
+
 ```bash
 FASTAPI_URL=https://your-scraper-service.onrender.com npm start
 ```
@@ -141,27 +148,27 @@ FASTAPI_URL=https://your-scraper-service.onrender.com npm start
 
 ### 🐍 Python Scraper Microservice (FastAPI - Port 8000)
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **GET** | `/health` | Health check endpoint |
-| **POST** | `/api/v1/scrape` | Synchronous REST endpoint returning JSON array of jobs |
+| Method         | Endpoint                  | Description                                                              |
+| :------------- | :------------------------ | :----------------------------------------------------------------------- |
+| **GET**  | `/health`               | Health check endpoint                                                    |
+| **POST** | `/api/v1/scrape`        | Synchronous REST endpoint returning JSON array of jobs                   |
 | **POST** | `/api/v1/scrape/stream` | SSE Streaming endpoint returning real-time log lines & final JSON output |
 
 ### 🌐 Express Backend Gateway (Node.js - Port 5000)
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **GET** | `/api/health` | Gateway status & FastAPI connectivity check |
-| **GET** | `/api/jobs` | Returns cached JSON job results |
-| **GET** | `/api/download-csv` | Downloads RFC-4180 CSV export file |
-| **POST** | `/api/scrape` | Proxies UI configuration to FastAPI SSE stream |
-| **POST** | `/api/stop` | Aborts active scraping request |
+| Method         | Endpoint              | Description                                    |
+| :------------- | :-------------------- | :--------------------------------------------- |
+| **GET**  | `/api/health`       | Gateway status & FastAPI connectivity check    |
+| **GET**  | `/api/jobs`         | Returns cached JSON job results                |
+| **GET**  | `/api/download-csv` | Downloads RFC-4180 CSV export file             |
+| **POST** | `/api/scrape`       | Proxies UI configuration to FastAPI SSE stream |
+| **POST** | `/api/stop`         | Aborts active scraping request                 |
 
 ---
 
 ## ⚙️ Configuration (`config.json`)
 
-All default search parameters are managed inside [`scraper-service/config.json`](file:///c:/Users/raadh/OneDrive/Desktop/MyAnatomy/MATCH/Opportunity/Job%20Scrapping/scraper-service/config.json):
+All default search parameters are managed inside [`scraper-service/config.json`](<file:///c:/Users/raadh/OneDrive/Desktop/MyAnatomy/MATCH/Opportunity/Job%20Scrapping/scraper-service/config.json>):
 
 ```json
 {

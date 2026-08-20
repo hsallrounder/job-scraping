@@ -10,7 +10,7 @@ const Papa = require('papaparse');
 const app = express();
 const PORT = process.env.PORT || 8080;
 // Target Python Scraper Microservice URL (Local simulation or Render production URL)
-const FASTAPI_URL = process.env.FASTAPI_URL //|| 'http://localhost:8000';
+const FASTAPI_URL = process.env.FASTAPI_URL;
 
 // Enable CORS and JSON body parsing
 app.use(cors());
