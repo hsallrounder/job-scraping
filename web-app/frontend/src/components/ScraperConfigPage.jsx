@@ -7,6 +7,7 @@ import StartScrapingButton from './StartScrapingButton';
 import LogConsole from './LogConsole';
 import JobResultsTable from './JobResultsTable';
 import { INITIAL_CONFIG } from '../constants/options';
+import { API_ENDPOINTS } from '../config/api';
 import './ScraperConfigPage.css';
 
 const ScraperConfigPage = () => {
@@ -30,12 +31,12 @@ const ScraperConfigPage = () => {
 
   // Check backend health and fetch existing jobs on mount
   useEffect(() => {
-    fetch('http://localhost:5000/api/health')
+    fetch(API_ENDPOINTS.HEALTH)
       .then((res) => res.json())
       .then((data) => {
         if (data && data.hasCsv) {
           setHasCsvResults(true);
-          fetch('http://localhost:5000/api/jobs')
+          fetch(API_ENDPOINTS.JOBS)
             .then((res) => res.json())
             .then((jobsData) => {
               if (jobsData && Array.isArray(jobsData.jobs) && jobsData.jobs.length > 0) {
@@ -108,7 +109,7 @@ const ScraperConfigPage = () => {
 
     try {
       const payload = buildPayload();
-      const apiUrl = process.env.REACT_APP_API_URL || '/api/scrape';
+      const apiUrl = API_ENDPOINTS.SCRAPE;
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -193,7 +194,7 @@ const ScraperConfigPage = () => {
         { type: 'warning', text: '⏹️ Scraping process stopped by user.' }
       ]);
 
-      const stopUrl = process.env.REACT_APP_STOP_URL || '/api/stop';
+      const stopUrl = API_ENDPOINTS.STOP;
       await fetch(stopUrl, { method: 'POST' });
     } catch (err) {
       console.error('Error stopping scraper:', err);
@@ -203,7 +204,7 @@ const ScraperConfigPage = () => {
   // Download CSV Results Handler
   const handleDownloadCsv = async () => {
     try {
-      const downloadUrl = process.env.REACT_APP_DOWNLOAD_URL || '/api/download-csv';
+      const downloadUrl = API_ENDPOINTS.DOWNLOAD_CSV;
       const response = await fetch(downloadUrl);
       if (!response.ok) {
         alert('CSV file not found on backend. Please run scraping first.');

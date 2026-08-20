@@ -30,7 +30,7 @@ const PayloadModal = ({ payload, onClose, onConfirm, status, apiResponse }) => {
             </span>
             <p className="status-desc">
               {status === 'error'
-                ? 'Express backend API is not running yet on port 5000. Below is the exact REST API contract payload prepared for POST /api/scrape.'
+                ? 'Express backend API is not reachable. Below is the exact REST API contract payload prepared for POST /api/scrape.'
                 : 'This clean JSON configuration will be sent to the Express REST API backend.'}
             </p>
           </div>

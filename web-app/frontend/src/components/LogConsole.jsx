@@ -7,7 +7,7 @@ const LogConsole = ({ logs, isScraping, onClearLogs }) => {
 
   // Auto-scroll to bottom of log stream
   useEffect(() => {
-    if (consoleEndRef.current) {
+    if (consoleEndRef.current && typeof consoleEndRef.current.scrollIntoView === 'function') {
       consoleEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [logs]);
