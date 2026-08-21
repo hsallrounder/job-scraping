@@ -78,6 +78,31 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
+.select-input:disabled {
+  background-color: #f8fafc;
+  color: #94a3b8;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+.option-card.option-card-disabled {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.option-card.option-card-disabled .field-label {
+  color: #94a3b8;
+}
+
+.field-help-disclaimer {
+  color: #d97706 !important;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  margin-top: 6px;
+  display: block;
+}
+
+
 .select-arrow {
   position: absolute;
   right: 12px;
@@ -142,3 +167,5 @@
   font-weight: 500;
   color: #1e293b;
 }
+
+

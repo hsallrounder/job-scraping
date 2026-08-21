@@ -6,6 +6,7 @@ import './RoleList.css';
 const RoleList = ({
   roles,
   isGoogleSelected,
+  hasOtherSites = true,
   onAddRole,
   onRoleChange,
   onRemoveRole,
@@ -36,6 +37,7 @@ const RoleList = ({
               role={role}
               index={idx}
               isGoogleSelected={isGoogleSelected}
+              hasOtherSites={hasOtherSites}
               onChange={onRoleChange}
               onRemove={onRemoveRole}
               canRemove={roles.length > 0}
@@ -44,6 +46,7 @@ const RoleList = ({
             />
           ))
         ) : (
+
           <div className="empty-roles-notice">
             <span>⚠️ No job roles added yet. Click below to add at least one role.</span>
           </div>

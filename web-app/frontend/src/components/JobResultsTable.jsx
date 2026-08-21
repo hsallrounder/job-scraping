@@ -103,7 +103,7 @@ const JobResultsTable = ({ jobs = [] }) => {
       .replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
-  // Dynamic Cell Renderer
+  // Dynamic Cell Renderer tailored for JobSpy schema (jobspy.md)
   const renderCellContent = (col, val, job) => {
     if (val === null || val === undefined || val === '') {
       return <span className="empty-val">-</span>;
@@ -111,6 +111,13 @@ const JobResultsTable = ({ jobs = [] }) => {
 
     // Boolean formatting
     if (typeof val === 'boolean') {
+      if (col === 'is_remote') {
+        return (
+          <span className={`badge-bool ${val ? 'bool-remote' : 'bool-onsite'}`}>
+            {val ? '🏠 Remote' : '🏢 Onsite'}
+          </span>
+        );
+      }
       return (
         <span className={`badge-bool ${val ? 'bool-true' : 'bool-false'}`}>
           {val ? 'True' : 'False'}
@@ -120,22 +127,17 @@ const JobResultsTable = ({ jobs = [] }) => {
 
     const strVal = String(val).trim();
 
-    // URL formatting
-    if (
-      strVal.startsWith('http://') ||
-      strVal.startsWith('https://') ||
-      col.toLowerCase().includes('url')
-    ) {
+    // Company Logo / Photo URL
+    if ((col === 'company_logo' || col === 'banner_photo_url') && strVal.startsWith('http')) {
       return (
-        <a
-          href={strVal}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-btn"
-          title={strVal}
-        >
-          View Link ↗
-        </a>
+        <div className="logo-cell-wrapper">
+          <img
+            src={strVal}
+            alt="Logo"
+            className="company-logo-img"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+        </div>
       );
     }
 
@@ -146,6 +148,52 @@ const JobResultsTable = ({ jobs = [] }) => {
         <span className={`site-badge site-${siteClass}`}>
           {strVal.toUpperCase()}
         </span>
+      );
+    }
+
+    // Job Type Badge
+    if (col === 'job_type') {
+      return (
+        <span className="badge-job-type">
+          {strVal}
+        </span>
+      );
+    }
+
+    // Skills tag formatting (e.g. from Naukri)
+    if (col === 'skills' && strVal.length > 0) {
+      const skillList = strVal.split(',').map((s) => s.trim()).filter(Boolean);
+      if (skillList.length > 1) {
+        return (
+          <div className="skills-chips-wrapper">
+            {skillList.slice(0, 3).map((s, idx) => (
+              <span key={idx} className="skill-chip">{s}</span>
+            ))}
+            {skillList.length > 3 && (
+              <span className="skill-chip-more">+{skillList.length - 3}</span>
+            )}
+          </div>
+        );
+      }
+    }
+
+    // URL formatting
+    if (
+      strVal.startsWith('http://') ||
+      strVal.startsWith('https://') ||
+      col.toLowerCase().includes('url')
+    ) {
+      const isDirect = col.includes('direct');
+      return (
+        <a
+          href={strVal}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`link-btn ${isDirect ? 'link-direct' : ''}`}
+          title={strVal}
+        >
+          {isDirect ? '⚡ Direct Apply' : 'View Link ↗'}
+        </a>
       );
     }
 
@@ -167,6 +215,7 @@ const JobResultsTable = ({ jobs = [] }) => {
 
     return <span>{strVal}</span>;
   };
+
 
   if (!jobs || jobs.length === 0) {
     return null;

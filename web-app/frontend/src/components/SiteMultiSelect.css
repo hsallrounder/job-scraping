@@ -151,6 +151,32 @@
   gap: 8px;
 }
 
+.checkbox-item.item-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background-color: #fafafa;
+}
+
+.checkbox-item.item-disabled:hover {
+  background-color: #fafafa;
+}
+
+.checkbox-item.item-disabled input[type="checkbox"] {
+  cursor: not-allowed;
+}
+
+.coming-soon-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  padding: 2px 7px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
 .special-badge {
   font-size: 0.72rem;
   font-weight: 500;
@@ -159,6 +185,7 @@
   padding: 2px 6px;
   border-radius: 4px;
 }
+
 
 .option-desc {
   font-size: 0.8rem;

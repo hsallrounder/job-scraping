@@ -251,7 +251,7 @@
 /* Cell Element Styles */
 .badge-bool {
   display: inline-block;
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -269,6 +269,69 @@
   border: 1px solid rgba(148, 163, 184, 0.3);
 }
 
+.bool-remote {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+.bool-onsite {
+  background: rgba(100, 116, 139, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.badge-job-type {
+  display: inline-block;
+  padding: 3px 8px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 4px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.logo-cell-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-logo-img {
+  max-width: 38px;
+  max-height: 38px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: #ffffff;
+  padding: 2px;
+}
+
+.skills-chips-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.skill-chip {
+  padding: 2px 6px;
+  background: rgba(14, 165, 233, 0.15);
+  color: #7dd3fc;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.skill-chip-more {
+  padding: 2px 5px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
 .link-btn {
   display: inline-block;
   padding: 4px 8px;
@@ -280,10 +343,22 @@
   font-size: 0.78rem;
   font-weight: 500;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .link-btn:hover {
   background: #6366f1;
+  color: #ffffff;
+}
+
+.link-direct {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.link-direct:hover {
+  background: #f59e0b;
   color: #ffffff;
 }
 
@@ -300,6 +375,10 @@
 .site-linkedin { background: rgba(14, 116, 144, 0.2); color: #38bdf8; border: 1px solid rgba(14, 116, 144, 0.4); }
 .site-glassdoor { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
 .site-google { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
+.site-zip_recruiter, .site-ziprecruiter { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+.site-naukri { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
+.site-bayt { background: rgba(20, 184, 166, 0.2); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.4); }
+.site-bdjobs { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.4); }
 
 .long-text-cell {
   display: flex;
@@ -335,6 +414,7 @@
   color: #64748b;
   font-style: italic;
 }
+
 
 /* Pagination Section */
 .pagination-footer {

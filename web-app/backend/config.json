@@ -9,10 +9,21 @@
     "indeed",
     "linkedin"
   ],
+  "countries": [
+    "India"
+  ],
   "location": "India",
   "country_indeed": "India",
   "jobs_per_role": 5,
-  "hours_old": 24,
+  "hours_old": 0,
   "fetch_linkedin_description": true,
-  "remove_duplicates": true
+  "remove_duplicates": true,
+  "job_type": null,
+  "is_remote": true,
+  "distance": 50,
+  "easy_apply": null,
+  "description_format": "markdown",
+  "enforce_annual_salary": false,
+  "offset": 0,
+  "proxies": null
 }

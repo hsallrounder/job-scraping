@@ -14,6 +14,9 @@ const SiteMultiSelect = ({ selectedSites, onChange, error, disabled }) => {
 
   const toggleSite = (siteId) => {
     if (disabled) return;
+    const siteObj = AVAILABLE_SITES.find((s) => s.id === siteId);
+    if (siteObj && (siteObj.disabled || siteObj.comingSoon)) return;
+
     if (selectedSites.includes(siteId)) {
       onChange(selectedSites.filter((id) => id !== siteId));
     } else {
@@ -36,12 +39,12 @@ const SiteMultiSelect = ({ selectedSites, onChange, error, disabled }) => {
           <span className="section-icon">🌐</span> 1. Job Sites
         </h2>
         <span className="selection-count">
-          {selectedSites.length} selected
+          {selectedSites.length} active selected
         </span>
       </div>
 
       <p className="section-description">
-        Choose job portals to scrape. Selecting <strong>Google Jobs</strong> will require a Google Search Term for each role.
+        Choose active job portals to scrape opportunities.
       </p>
 
       {/* Selected Tags Display */}
@@ -83,7 +86,7 @@ const SiteMultiSelect = ({ selectedSites, onChange, error, disabled }) => {
           <input
             type="text"
             className="site-search-input"
-            placeholder={disabled ? "Scraping in progress..." : "Search sites (e.g. Indeed, LinkedIn, Google)..."}
+            placeholder={disabled ? "Scraping in progress..." : "Select job sites (Indeed, LinkedIn)..."}
             value={searchTerm}
             onChange={(e) => {
               if (disabled) return;
@@ -112,23 +115,25 @@ const SiteMultiSelect = ({ selectedSites, onChange, error, disabled }) => {
             {filteredSites.length > 0 ? (
               filteredSites.map((site) => {
                 const isSelected = selectedSites.includes(site.id);
+                const isItemDisabled = Boolean(site.disabled || site.comingSoon);
+
                 return (
                   <label
                     key={site.id}
-                    className={`checkbox-item ${isSelected ? 'selected' : ''}`}
+                    className={`checkbox-item ${isSelected ? 'selected' : ''} ${isItemDisabled ? 'item-disabled' : ''}`}
                   >
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleSite(site.id)}
-                      disabled={disabled}
+                      disabled={disabled || isItemDisabled}
                     />
                     <span className="custom-checkbox"></span>
                     <div className="option-info">
                       <span className="option-name">
                         {site.name}
-                        {site.id === 'google' && (
-                          <span className="special-badge">Special: Search Terms Enabled</span>
+                        {site.comingSoon && (
+                          <span className="coming-soon-badge">Coming Soon</span>
                         )}
                       </span>
                       <span className="option-desc">{site.description}</span>

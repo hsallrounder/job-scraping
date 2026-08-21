@@ -6,6 +6,7 @@ const RoleForm = ({
   role,
   index,
   isGoogleSelected,
+  hasOtherSites = true,
   onChange,
   onRemove,
   canRemove,
@@ -19,6 +20,8 @@ const RoleForm = ({
   const handleGoogleSearchTermChange = (e) => {
     onChange(role.id, 'google_search_term', e.target.value);
   };
+
+  const isSearchTermDisabled = disabled || !hasOtherSites;
 
   return (
     <div className={`role-card ${disabled ? 'card-disabled' : ''}`}>
@@ -38,23 +41,32 @@ const RoleForm = ({
       </div>
 
       <div className="role-fields">
-        {/* Main Search Term */}
-        <div className="form-group">
+        {/* Main Search Term - Disabled when no other sites selected (e.g. only Google Jobs selected) */}
+        <div className={`form-group ${!hasOtherSites ? 'form-group-disabled' : ''}`}>
           <label className="field-label" htmlFor={`search_term_${role.id}`}>
-            Search Term <span className="required-star">*</span>
+            Search Term {hasOtherSites && <span className="required-star">*</span>}
           </label>
           <input
             id={`search_term_${role.id}`}
             type="text"
             className={`text-input ${errors.search_term ? 'input-error' : ''}`}
-            placeholder="e.g. Backend Engineer, SDE Intern, Data Analyst..."
+            placeholder={
+              !hasOtherSites
+                ? "Disabled — not needed when only Google Jobs is selected"
+                : "e.g. Backend Engineer, SDE Intern, Data Analyst..."
+            }
             value={role.search_term || ''}
             onChange={handleSearchTermChange}
-            disabled={disabled}
+            disabled={isSearchTermDisabled}
           />
-          <span className="field-help">The primary title or keyword to search across job sites.</span>
+          <span className="field-help">
+            {!hasOtherSites
+              ? "Search Term is disabled because Google Jobs exclusively uses the Google Search Term below."
+              : "The primary title or keyword to search across job sites."}
+          </span>
           <ValidationMessage message={errors.search_term} />
         </div>
+
 
         {/* Conditional Google Search Term */}
         {isGoogleSelected && (

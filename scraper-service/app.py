@@ -39,12 +39,27 @@ class RoleItem(BaseModel):
 class ScrapeRequest(BaseModel):
     roles: List[RoleItem]
     sites: List[str] = ["indeed", "linkedin"]
+
+    countries: Optional[List[str]] = ["India"]
     location: Optional[str] = "India"
     country_indeed: Optional[str] = "India"
     jobs_per_role: Optional[int] = 5
     hours_old: Optional[int] = 24
     fetch_linkedin_description: Optional[bool] = True
     remove_duplicates: Optional[bool] = True
+    job_type: Optional[str] = None
+    is_remote: Optional[bool] = None
+    distance: Optional[int] = 50
+    easy_apply: Optional[bool] = None
+    description_format: Optional[str] = "markdown"
+    enforce_annual_salary: Optional[bool] = False
+    offset: Optional[int] = 0
+    proxies: Optional[List[str]] = None
+    ca_cert: Optional[str] = None
+    user_agent: Optional[str] = None
+    verbose: Optional[int] = 0
+    linkedin_company_ids: Optional[List[int]] = None
+
 
 
 def process_jobs_dataframe(df: pd.DataFrame, remove_duplicates: bool = True):

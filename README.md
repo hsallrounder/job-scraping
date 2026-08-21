@@ -33,7 +33,8 @@ Job Scrapping/
 - **Real-Time Log Streaming**: Live terminal log updates streamed directly to the browser via Server-Sent Events (SSE).
 - **Dynamic Interactive Table**: Multi-column sorting, searching across all 36 JobSpy fields, site-badge filtering, pagination, and an `👁️ Details` job description modal inspector.
 - **RFC-4180 Compliant CSV Export**: Clean browser-side and server-side CSV downloading powered by `PapaParse`.
-- **Multi-Portal Scraping**: Support for Indeed, LinkedIn, and Google Jobs.
+- **Multi-Portal Scraping**: Support for Indeed and LinkedIn (Google Jobs coming soon).
+
 - **Render Cloud Ready**: Fully self-contained Python microservice configured with `runtime.txt` for 1-click cloud deployment.
 
 ---
@@ -104,7 +105,7 @@ npm start
    - **Environment**: `Python 3`
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn app:app --host 0.0.0.0 --port $PORT`
-4. Render automatically reads [`scraper-service/runtime.txt`](<file:///c:/Users/raadh/OneDrive/Desktop/MyAnatomy/MATCH/Opportunity/Job%20Scrapping/scraper-service/runtime.txt>) (`python-3.12.8`) to ensure Python environment compatibility.
+4. Render automatically reads `scraper-service/runtime.txt` (`python-3.12.8`) to ensure Python environment compatibility.
 5. Once deployed, copy your live Render URL (e.g. `https://your-scraper-service.onrender.com`).
 
 ---
@@ -168,7 +169,7 @@ FASTAPI_URL=https://your-scraper-service.onrender.com npm start
 
 ## ⚙️ Configuration (`config.json`)
 
-All default search parameters are managed inside [`scraper-service/config.json`](<file:///c:/Users/raadh/OneDrive/Desktop/MyAnatomy/MATCH/Opportunity/Job%20Scrapping/scraper-service/config.json>):
+All default search parameters are managed inside `scraper-service/config.json`:
 
 ```json
 {
@@ -178,12 +179,18 @@ All default search parameters are managed inside [`scraper-service/config.json`]
       "google_search_term": "Fresher OR Entry Level 'Associate Software Engineer' job in India"
     }
   ],
-  "sites": ["indeed", "google", "linkedin"],
+  "sites": ["indeed", "linkedin"],
+  "countries": ["India"],
   "location": "India",
   "country_indeed": "India",
   "jobs_per_role": 5,
   "hours_old": 24,
   "fetch_linkedin_description": true,
-  "remove_duplicates": true
+  "remove_duplicates": true,
+  "job_type": null,
+  "is_remote": false,
+  "distance": 50,
+  "description_format": "markdown"
 }
 ```
+

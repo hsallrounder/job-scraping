@@ -1,38 +1,88 @@
 export const AVAILABLE_SITES = [
-  { id: "indeed", name: "Indeed", description: "Global job aggregator" },
-  { id: "linkedin", name: "LinkedIn", description: "Professional networking platform" },
-  { id: "google", name: "Google Jobs", description: "Google search job listings (Requires Google Search Terms)" },
-  { id: "zip_recruiter", name: "ZipRecruiter", description: "Job search and hiring platform" },
-  { id: "glassdoor", name: "Glassdoor", description: "Company reviews & job listings" },
-  { id: "bayt", name: "Bayt", description: "Middle East job portal" },
+  { id: "indeed", name: "Indeed", description: "Global job aggregator", disabled: false },
+  { id: "linkedin", name: "LinkedIn", description: "Professional networking platform", disabled: false },
+  { id: "google", name: "Google Jobs", description: "Aggregated Google search job listings", disabled: true, comingSoon: true },
 ];
+
 
 export const AVAILABLE_COUNTRIES = [
   "India",
-  "United States",
-  "United Kingdom",
+  "USA",
+  "UK",
   "Canada",
   "Australia",
   "Germany",
   "France",
   "Singapore",
   "United Arab Emirates",
+  "Saudi Arabia",
   "Netherlands",
+  "Ireland",
   "Spain",
   "Italy",
-  "Brazil",
-  "Mexico",
+  "Switzerland",
+  "Sweden",
   "Japan",
   "South Korea",
-  "South Africa",
-  "Saudi Arabia",
+  "Brazil",
+  "Mexico",
+  "Argentina",
+  "Austria",
+  "Bahrain",
+  "Bangladesh",
+  "Belgium",
+  "Bulgaria",
+  "Chile",
+  "China",
+  "Colombia",
+  "Costa Rica",
+  "Croatia",
+  "Cyprus",
+  "Czech Republic",
+  "Denmark",
+  "Ecuador",
+  "Egypt",
+  "Estonia",
+  "Finland",
+  "Greece",
+  "Hong Kong",
+  "Hungary",
+  "Indonesia",
+  "Israel",
+  "Kuwait",
+  "Latvia",
+  "Lithuania",
+  "Luxembourg",
+  "Malaysia",
+  "Malta",
+  "Morocco",
   "New Zealand",
-  "Ireland",
-  "Switzerland",
-  "Sweden"
+  "Nigeria",
+  "Norway",
+  "Oman",
+  "Pakistan",
+  "Panama",
+  "Peru",
+  "Philippines",
+  "Poland",
+  "Portugal",
+  "Qatar",
+  "Romania",
+  "Slovakia",
+  "Slovenia",
+  "South Africa",
+  "Taiwan",
+  "Thailand",
+  "Turkey",
+  "Ukraine",
+  "Uruguay",
+  "Venezuela",
+  "Vietnam",
+  "Worldwide"
 ];
 
 export const HOURS_OLD_OPTIONS = [
+  { value: 0, label: "Any Time (No filter)" },
   { value: 12, label: "Last 12 hours" },
   { value: 24, label: "Last 24 hours (1 day)" },
   { value: 36, label: "Last 36 hours" },
@@ -44,11 +94,25 @@ export const HOURS_OLD_OPTIONS = [
   { value: 720, label: "Last 30 days (1 month)" }
 ];
 
+export const JOB_TYPE_OPTIONS = [
+  { value: "", label: "All Job Types" },
+  { value: "fulltime", label: "Full-Time" },
+  { value: "parttime", label: "Part-Time" },
+  { value: "internship", label: "Internship" },
+  { value: "contract", label: "Contract" }
+];
+
+export const DESCRIPTION_FORMAT_OPTIONS = [
+  { value: "markdown", label: "Markdown (Recommended)" },
+  { value: "html", label: "HTML" }
+];
+
 export const MIN_JOBS_PER_ROLE = 1;
 export const MAX_JOBS_PER_ROLE = 1000;
 
 export const INITIAL_CONFIG = {
-  sites: ["indeed", "linkedin", "google"],
+  sites: ["indeed", "linkedin"],
+
   roles: [
     {
       id: "role_1",
@@ -59,5 +123,11 @@ export const INITIAL_CONFIG = {
   countries: ["India"],
   jobs_per_role: 5,
   hours_old: 24,
-  remove_duplicates: true
+  remove_duplicates: true,
+  job_type: "",
+  is_remote: false,
+  distance: 50,
+  description_format: "markdown"
 };
+
+

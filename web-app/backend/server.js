@@ -146,12 +146,26 @@ app.post('/api/scrape', async (req, res) => {
       roles = [],
       sites = [],
       countries = [],
+      location,
+      country_indeed,
       jobs_per_role = 5,
       hours_old = 24,
-      remove_duplicates = true
+      remove_duplicates = true,
+      job_type = null,
+      is_remote = null,
+      distance = 50,
+      easy_apply = null,
+      description_format = 'markdown',
+      enforce_annual_salary = false,
+      offset = 0,
+      proxies = null
     } = req.body;
 
-    const primaryLocation = (countries && countries.length > 0) ? countries[0] : 'India';
+    const countryList = (Array.isArray(countries) && countries.length > 0)
+      ? countries
+      : (country_indeed ? [country_indeed] : (location ? [location] : ['India']));
+
+    const primaryLocation = countryList[0] || 'India';
 
     const finalConfig = {
       roles: Array.isArray(roles)
@@ -160,14 +174,25 @@ app.post('/api/scrape', async (req, res) => {
             google_search_term: (role.google_search_term || '').trim()
           }))
         : [],
-      sites: Array.isArray(sites) ? sites : ['indeed', 'linkedin'],
+      sites: Array.isArray(sites) && sites.length > 0 ? sites : ['indeed', 'linkedin'],
+
+      countries: countryList,
       location: primaryLocation,
       country_indeed: primaryLocation,
       jobs_per_role: Number(jobs_per_role) || 5,
-      hours_old: Number(hours_old) || 24,
+      hours_old: hours_old !== undefined && hours_old !== null ? Number(hours_old) : 24,
       fetch_linkedin_description: true,
-      remove_duplicates: Boolean(remove_duplicates)
+      remove_duplicates: Boolean(remove_duplicates),
+      job_type: job_type || null,
+      is_remote: is_remote !== null && is_remote !== undefined ? Boolean(is_remote) : null,
+      distance: Number(distance) || 50,
+      easy_apply: easy_apply !== null && easy_apply !== undefined ? Boolean(easy_apply) : null,
+      description_format: description_format || 'markdown',
+      enforce_annual_salary: Boolean(enforce_annual_salary),
+      offset: Number(offset) || 0,
+      proxies: proxies || null
     };
+
 
     console.log('\n==================================================');
     console.log(`🌐 Proxying Scrape Request to Scraper Microservice (${FASTAPI_URL})`);
