@@ -45,7 +45,10 @@ class ScrapeRequest(BaseModel):
     country_indeed: Optional[str] = "India"
     jobs_per_role: Optional[int] = 5
     hours_old: Optional[int] = 24
+    hours_old_indeed: Optional[int] = None
+    hours_old_linkedin: Optional[int] = None
     fetch_linkedin_description: Optional[bool] = True
+
     remove_duplicates: Optional[bool] = True
     job_type: Optional[str] = None
     is_remote: Optional[bool] = None

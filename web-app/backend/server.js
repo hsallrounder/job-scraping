@@ -150,6 +150,9 @@ app.post('/api/scrape', async (req, res) => {
       country_indeed,
       jobs_per_role = 5,
       hours_old = 24,
+      hours_old_indeed,
+      hours_old_linkedin,
+      fetch_linkedin_description = true,
       remove_duplicates = true,
       job_type = null,
       is_remote = null,
@@ -181,7 +184,9 @@ app.post('/api/scrape', async (req, res) => {
       country_indeed: primaryLocation,
       jobs_per_role: Number(jobs_per_role) || 5,
       hours_old: hours_old !== undefined && hours_old !== null ? Number(hours_old) : 24,
-      fetch_linkedin_description: true,
+      hours_old_indeed: hours_old_indeed !== undefined && hours_old_indeed !== null ? Number(hours_old_indeed) : null,
+      hours_old_linkedin: hours_old_linkedin !== undefined && hours_old_linkedin !== null ? Number(hours_old_linkedin) : null,
+      fetch_linkedin_description: Boolean(fetch_linkedin_description),
       remove_duplicates: Boolean(remove_duplicates),
       job_type: job_type || null,
       is_remote: is_remote !== null && is_remote !== undefined ? Boolean(is_remote) : null,
@@ -192,6 +197,7 @@ app.post('/api/scrape', async (req, res) => {
       offset: Number(offset) || 0,
       proxies: proxies || null
     };
+
 
 
     console.log('\n==================================================');
@@ -298,11 +304,20 @@ app.post('/api/scrape', async (req, res) => {
 
   } catch (err) {
     console.error('❌ Express Gateway error:', err);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      details: err.message
-    });
+    if (res.headersSent) {
+      if (!res.writableEnded) {
+        res.write(`data: ${JSON.stringify({ type: 'error', text: `Express Gateway error: ${err.message}` })}\n\n`);
+        res.write(`data: ${JSON.stringify({ type: 'done', code: 1, jobs: [], message: err.message })}\n\n`);
+        res.end();
+      }
+    } else {
+      res.status(500).json({
+        error: 'Internal Server Error',
+        details: err.message
+      });
+    }
   }
+
 });
 
 // Serve React frontend static files in production mode

@@ -168,4 +168,114 @@
   color: #1e293b;
 }
 
+.radio-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background-color: #f1f5f9 !important;
+}
+
+.site-options-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 18px;
+  transition: all 0.2s ease;
+}
+
+.site-options-section.global-section {
+  border-left: 4px solid #3b82f6;
+}
+
+.site-options-section.indeed-section {
+  border-left: 4px solid #003a9b;
+}
+
+.site-options-section.linkedin-section {
+  border-left: 4px solid #0a66c2;
+}
+
+.site-options-section.section-inactive {
+  background: #fafafa;
+  opacity: 0.7;
+  border-color: #e2e8f0;
+}
+
+.site-options-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.site-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-section-icon {
+  font-size: 1.3rem;
+}
+
+.site-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.site-section-subtitle {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+.site-status-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.tag-active {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.tag-indeed-active {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.tag-linkedin-active {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.tag-disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  border: 1px solid #e2e8f0;
+}
+
+.site-inactive-notice {
+  padding: 12px 14px;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
+}
+
+
+
 

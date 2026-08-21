@@ -6,8 +6,8 @@
     }
   ],
   "sites": [
-    "indeed",
-    "linkedin"
+    "linkedin",
+    "indeed"
   ],
   "countries": [
     "India"
@@ -18,8 +18,8 @@
   "hours_old": 0,
   "fetch_linkedin_description": true,
   "remove_duplicates": true,
-  "job_type": null,
-  "is_remote": true,
+  "job_type": "internship",
+  "is_remote": false,
   "distance": 50,
   "easy_apply": null,
   "description_format": "markdown",

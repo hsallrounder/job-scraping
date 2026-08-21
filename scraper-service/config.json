@@ -16,6 +16,8 @@
   "country_indeed": "India",
   "jobs_per_role": 5,
   "hours_old": 24,
+  "hours_old_indeed": 24,
+  "hours_old_linkedin": 24,
   "fetch_linkedin_description": true,
   "remove_duplicates": true,
   "job_type": null,

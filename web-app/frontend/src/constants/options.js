@@ -123,11 +123,17 @@ export const INITIAL_CONFIG = {
   countries: ["India"],
   jobs_per_role: 5,
   hours_old: 24,
+  hours_old_indeed: 24,
+  hours_old_linkedin: 24,
   remove_duplicates: true,
   job_type: "",
   is_remote: false,
   distance: 50,
+  fetch_linkedin_description: true,
   description_format: "markdown"
 };
+
+
+
 
 

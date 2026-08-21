@@ -67,6 +67,8 @@ def scrape_all_jobs(config=None, log_callback=None):
 
     jobs_per_role = config.get("jobs_per_role", DEFAULT_JOBS_PER_ROLE)
     hours_old = config.get("hours_old", DEFAULT_HOURS_OLD)
+    hours_old_indeed = config.get("hours_old_indeed", None)
+    hours_old_linkedin = config.get("hours_old_linkedin", None)
     fetch_linkedin_desc = config.get(
         "fetch_linkedin_description", DEFAULT_FETCH_LINKEDIN_DESC
     )
@@ -111,63 +113,81 @@ def scrape_all_jobs(config=None, log_callback=None):
             log(f"Searching for: '{effective_search_term}'{loc_label} across {', '.join(cleaned_sites)}")
             log("=" * 70)
 
-            try:
-                # Build scrape_jobs kwargs
-                scrape_kwargs = {
-                    "site_name": cleaned_sites,
-                    "search_term": effective_search_term,
-                    "location": country,
-                    "country_indeed": country,
-                    "results_wanted": jobs_per_role,
-                    "hours_old": hours_old if hours_old else None,
-                    "linkedin_fetch_description": fetch_linkedin_desc,
-                    "description_format": description_format,
-                    "enforce_annual_salary": enforce_annual_salary,
-                }
+            # Scrape each site independently to apply site-exclusive parameters precisely
+            for site in cleaned_sites:
+                try:
+                    site_kwargs = {
+                        "site_name": [site],
+                        "search_term": effective_search_term,
+                        "location": country,
+                        "results_wanted": jobs_per_role,
+                        "description_format": description_format,
+                        "enforce_annual_salary": enforce_annual_salary,
+                    }
 
+                    if distance:
+                        site_kwargs["distance"] = int(distance)
+                    if offset:
+                        site_kwargs["offset"] = int(offset)
+                    if proxies:
+                        site_kwargs["proxies"] = proxies
+                    if ca_cert:
+                        site_kwargs["ca_cert"] = ca_cert
+                    if user_agent:
+                        site_kwargs["user_agent"] = user_agent
+                    if verbose is not None:
+                        site_kwargs["verbose"] = int(verbose)
 
-                if google_search_term and "google" in cleaned_sites:
-                    scrape_kwargs["google_search_term"] = google_search_term
+                    # Site-specific configuration routing
+                    if site == "indeed":
+                        site_kwargs["country_indeed"] = country
+                        # Indeed mutual exclusion: job_type & is_remote disable hours_old
+                        if job_type or is_remote:
+                            if job_type:
+                                site_kwargs["job_type"] = job_type
+                            if is_remote is not None:
+                                site_kwargs["is_remote"] = bool(is_remote)
+                        else:
+                            eff_indeed_hours = hours_old_indeed if hours_old_indeed is not None else hours_old
+                            if eff_indeed_hours:
+                                site_kwargs["hours_old"] = int(eff_indeed_hours)
 
-                if job_type:
-                    scrape_kwargs["job_type"] = job_type
-                if is_remote is not None:
-                    scrape_kwargs["is_remote"] = bool(is_remote)
-                if distance:
-                    scrape_kwargs["distance"] = int(distance)
-                if easy_apply is not None:
-                    scrape_kwargs["easy_apply"] = bool(easy_apply)
-                if offset:
-                    scrape_kwargs["offset"] = int(offset)
-                if proxies:
-                    scrape_kwargs["proxies"] = proxies
-                if ca_cert:
-                    scrape_kwargs["ca_cert"] = ca_cert
-                if user_agent:
-                    scrape_kwargs["user_agent"] = user_agent
-                if verbose is not None:
-                    scrape_kwargs["verbose"] = int(verbose)
-                if linkedin_company_ids:
-                    scrape_kwargs["linkedin_company_ids"] = linkedin_company_ids
+                        if easy_apply is not None:
+                            site_kwargs["easy_apply"] = bool(easy_apply)
 
-                jobs = scrape_jobs(**scrape_kwargs)
+                    elif site == "linkedin":
+                        site_kwargs["linkedin_fetch_description"] = bool(fetch_linkedin_desc)
+                        eff_li_hours = hours_old_linkedin if hours_old_linkedin is not None else hours_old
+                        if eff_li_hours:
+                            site_kwargs["hours_old"] = int(eff_li_hours)
 
-                if jobs is None or jobs.empty:
-                    log(f"No jobs found for '{search_term}' in {country}\n")
-                    continue
+                        if linkedin_company_ids:
+                            site_kwargs["linkedin_company_ids"] = linkedin_company_ids
 
-                jobs = jobs.head(jobs_per_role).copy()
-                jobs["searched_role"] = search_term
-                if "country" not in jobs.columns and country:
-                    jobs["country"] = country
+                    elif site == "google":
+                        if google_search_term:
+                            site_kwargs["google_search_term"] = google_search_term
 
-                log(f"Found & kept {len(jobs)} jobs for '{search_term}' ({country})\n")
-                all_jobs.append(jobs)
+                    log(f"[{site.upper()}] Scraping '{effective_search_term}'...")
+                    jobs = scrape_jobs(**site_kwargs)
 
-            except Exception as e:
-                log(f"Error searching '{search_term}' ({country}): {e}\n")
+                    if jobs is None or jobs.empty:
+                        log(f"[{site.upper()}] No jobs found for '{effective_search_term}' ({country})\n")
+                        continue
+
+                    jobs = jobs.head(jobs_per_role).copy()
+                    jobs["searched_role"] = effective_search_term
+                    if "country" not in jobs.columns and country:
+                        jobs["country"] = country
+
+                    log(f"[{site.upper()}] Found & kept {len(jobs)} jobs for '{effective_search_term}'\n")
+                    all_jobs.append(jobs)
+
+                except Exception as e:
+                    log(f"[{site.upper()}] Error scraping '{effective_search_term}' in {country}: {e}\n")
 
     if len(all_jobs) == 0:
+
         log("No jobs collected across all roles and locations.")
         return pd.DataFrame()
 

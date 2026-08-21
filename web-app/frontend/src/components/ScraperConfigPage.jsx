@@ -16,11 +16,15 @@ const ScraperConfigPage = () => {
   const [roles, setRoles] = useState(INITIAL_CONFIG.roles);
   const [countries, setCountries] = useState(INITIAL_CONFIG.countries);
   const [jobsPerRole, setJobsPerRole] = useState(INITIAL_CONFIG.jobs_per_role);
-  const [hoursOld, setHoursOld] = useState(INITIAL_CONFIG.hours_old);
+  const [hoursOldIndeed, setHoursOldIndeed] = useState(INITIAL_CONFIG.hours_old_indeed ?? 24);
+  const [hoursOldLinkedin, setHoursOldLinkedin] = useState(INITIAL_CONFIG.hours_old_linkedin ?? 24);
   const [removeDuplicates, setRemoveDuplicates] = useState(INITIAL_CONFIG.remove_duplicates);
   const [jobType, setJobType] = useState(INITIAL_CONFIG.job_type || '');
   const [isRemote, setIsRemote] = useState(INITIAL_CONFIG.is_remote || false);
+  const [fetchLinkedinDescription, setFetchLinkedinDescription] = useState(INITIAL_CONFIG.fetch_linkedin_description ?? true);
   const [descriptionFormat, setDescriptionFormat] = useState(INITIAL_CONFIG.description_format || 'markdown');
+
+
 
   // Status, Scraped Data & Logs State
   const [apiStatus, setApiStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error' | 'stopped'
@@ -97,12 +101,18 @@ const ScraperConfigPage = () => {
       location: countries && countries.length > 0 ? countries[0] : 'India',
       country_indeed: countries && countries.length > 0 ? countries[0] : 'India',
       jobs_per_role: Number(jobsPerRole) || 5,
-      hours_old: isRemote ? 0 : (Number(hoursOld) || 0),
+      hours_old_indeed: (jobType || isRemote) ? 0 : (Number(hoursOldIndeed) || 0),
+      hours_old_linkedin: Number(hoursOldLinkedin) || 0,
+      hours_old: (jobType || isRemote) ? 0 : (Number(hoursOldIndeed) || Number(hoursOldLinkedin) || 0),
       remove_duplicates: Boolean(removeDuplicates),
       job_type: jobType || null,
       is_remote: Boolean(isRemote),
+      fetch_linkedin_description: Boolean(fetchLinkedinDescription),
       description_format: descriptionFormat || 'markdown'
     };
+
+
+
 
   };
 
@@ -310,20 +320,27 @@ const ScraperConfigPage = () => {
 
           {/* 4. Scraping Options & Advanced Filters */}
           <ScrapingOptions
+            sites={sites}
             jobsPerRole={jobsPerRole}
-            hoursOld={hoursOld}
+            descriptionFormat={descriptionFormat}
             removeDuplicates={removeDuplicates}
+            hoursOldIndeed={hoursOldIndeed}
             jobType={jobType}
             isRemote={isRemote}
-            descriptionFormat={descriptionFormat}
+            hoursOldLinkedin={hoursOldLinkedin}
+            fetchLinkedinDescription={fetchLinkedinDescription}
             onJobsPerRoleChange={setJobsPerRole}
-            onHoursOldChange={setHoursOld}
+            onDescriptionFormatChange={setDescriptionFormat}
             onRemoveDuplicatesChange={setRemoveDuplicates}
+            onHoursOldIndeedChange={setHoursOldIndeed}
             onJobTypeChange={setJobType}
             onIsRemoteChange={setIsRemote}
-            onDescriptionFormatChange={setDescriptionFormat}
+            onHoursOldLinkedinChange={setHoursOldLinkedin}
+            onFetchLinkedinDescriptionChange={setFetchLinkedinDescription}
             disabled={isSubmitting}
           />
+
+
 
 
         </div>
